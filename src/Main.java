@@ -4,8 +4,8 @@ import java.util.Scanner;
 import java.util.InputMismatchException;
 
 public class Main {
-    private static GestionDeComptes gestionComptes = new GestionDeComptes();
-    private static Scanner scanner = new Scanner(System.in);
+    private static final GestionDeComptes gestionComptes = new GestionDeComptes();
+    private static final Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
         int choix;
@@ -44,6 +44,56 @@ public class Main {
                     System.out.println("Choix invalide. Réessayez.");
             }
         } while (choix != 8);
+
+//        // TESTS
+//        // Créer la gestion de comptes
+//        GestionDeComptes gestionComptes = new GestionDeComptes();
+//
+//        // Créer un compte courant de Nicolas avec un découvert de 2000 €
+//        CompteCourant compteNicolas = new CompteCourant("Nicolas", 2000);
+//
+//        // Créer un compte courant de Jérémie avec un découvert de 500 €
+//        CompteCourant compteJeremie = new CompteCourant("Jérémie", 500);
+//
+//        // Créer un compte épargne pour Nicolas avec un taux de 2.05%
+//        CompteEpargne compteEpargneNicolas = new CompteEpargne("Nicolas", 0.025);
+//
+//        // Ajouter les comptes à la gestion de comptes
+//        gestionComptes.ajouterCompte(compteNicolas);
+//        gestionComptes.ajouterCompte(compteJeremie);
+//        gestionComptes.ajouterCompte(compteEpargneNicolas);
+//
+//        // Opérations sur les comptes
+//        // Créditer le compte de Nicolas qui touche son salaire de 1000 €
+//        compteNicolas.crediter(1000);
+//
+//        // Créditer le compte épargne de Nicolas de 200 €
+//        compteEpargneNicolas.crediter(200);
+//
+//        // Débiter le compte de Nicolas qui fait le plein de sa voiture : 50 €
+//        compteNicolas.debiter(50);
+//
+//        // Créditer le compte de Nicolas qui a reçu un cadeau de la banque de 100 €
+//        compteNicolas.crediter(100);
+//
+//        // Créditer à nouveau le compte épargne de Nicolas de 100 €
+//        compteEpargneNicolas.crediter(100);
+//
+//        // Débiter le compte de Jérémie qui achète un nouveau PC : 500 €
+//        compteJeremie.debiter(500);
+//
+//        // Débiter le compte de Jérémie qui rembourse ses dettes à Nicolas : 200 € mais ne va pas passer car découvert depassé
+//        compteJeremie.debiter(200);
+//
+//        // Afficher le résumé des comptes de Nicolas et Jérémie
+//        System.out.println("Résumé du compte courant de Nicolas :");
+//        compteNicolas.information();
+//
+//        System.out.println("Résumé du compte courant de Jérémie :");
+//        compteJeremie.information();
+//
+//        System.out.println("Résumé du compte épargne de Nicolas :");
+//        compteEpargneNicolas.information();
     }
 
     private static void afficherMenu() {
@@ -198,9 +248,19 @@ public class Main {
                         continue;
                     }
 
+                    // Stocker le solde initial avant de tenter le débit
+                    double soldeInitial = compte.soldeFinal();
+
+                    // Tenter le débit
                     compte.debiter(montant);
-                    System.out.println("Compte débité avec succès.");
-                    compte.information();
+
+                    // Vérifier si le débit a réellement eu lieu
+                    if (compte.soldeFinal() == soldeInitial) {
+                        System.out.println("Le débit a été annulé.");
+                    } else {
+                        System.out.println("Compte débité avec succès.");
+                        compte.information();
+                    }
                     break;
                 } catch (InputMismatchException e) {
                     System.out.println("Erreur : Veuillez saisir un montant valide.");

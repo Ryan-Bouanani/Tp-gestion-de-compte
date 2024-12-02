@@ -1,5 +1,5 @@
 public class CompteCourant extends Compte {
-    private double decouvertAutorise;
+    public double decouvertAutorise;
 
     // Constructeurs
     public CompteCourant() {
@@ -25,7 +25,7 @@ public class CompteCourant extends Compte {
         System.out.println("Solde : " + String.format("%.2f", soldeFinal()));
         System.out.println("Découvert autorisé : " + String.format("%.2f", decouvertAutorise));
         System.out.println("Opérations : ");
-        operations.forEach(op -> System.out.println(op));
+        operations.forEach(System.out::println);
         System.out.println("*******************************************");
     }
 }

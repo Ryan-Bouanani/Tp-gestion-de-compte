@@ -25,7 +25,7 @@ public class CompteEpargne extends Compte {
         System.out.println("Solde : " + String.format("%.2f", soldeFinal()));
         System.out.println("Taux d'abondement : " + String.format("%.2f", tauxAbondement * 100) + " %");
         System.out.println("Opérations : ");
-        operations.forEach(op -> System.out.println(op));
+        operations.forEach(System.out::println);
         System.out.println("*******************************************");
     }
 }

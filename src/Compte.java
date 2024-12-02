@@ -23,7 +23,24 @@ public abstract class Compte implements Comparable<Compte> {
 
     // Méthode pour débiter
     public void debiter(double montant) {
-        operations.add(new Operation(montant, Mouvement.DEBIT));
+        if (montant > 0) {
+            double soldeApresDebit = calculSolde() - montant;
+
+            // Pour CompteCourant, vérifier le découvert
+            if (this instanceof CompteCourant compteCourant) {
+                if (soldeApresDebit < -compteCourant.decouvertAutorise) {
+                    System.out.println("Erreur : Dépassement du découvert autorisé.");
+                    return;
+                }
+            }
+            // Pour CompteEpargne, interdire tout débit en dessous de zéro
+            else if (soldeApresDebit < 0) {
+                System.out.println("Erreur : Solde insuffisant.");
+                return;
+            }
+
+            operations.add(new Operation(montant, Mouvement.DEBIT));
+        }
     }
 
     // Créditer un compte et débiter un autre
@@ -69,7 +86,7 @@ public abstract class Compte implements Comparable<Compte> {
         System.out.println("Propriétaire : " + proprietaire);
         System.out.println("Solde : " + String.format("%.2f", soldeFinal()));
         System.out.println("Opérations : ");
-        operations.forEach(op -> System.out.println(op));
+        operations.forEach(System.out::println);
         System.out.println("*******************************************");
     }
 
