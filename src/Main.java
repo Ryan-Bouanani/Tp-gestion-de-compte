@@ -264,7 +264,7 @@ public class Main {
                     break;
                 } catch (InputMismatchException e) {
                     System.out.println("Erreur : Veuillez saisir un montant valide.");
-                    scanner.nextLine(); // Vider le buffer
+                    scanner.nextLine();
                 }
             }
         }
