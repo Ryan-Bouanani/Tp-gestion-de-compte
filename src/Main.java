@@ -256,7 +256,7 @@ public class Main {
 
                     // Vérifier si le débit a réellement eu lieu
                     if (compte.soldeFinal() == soldeInitial) {
-                        System.out.println("Le débit a été annulé.");
+                        System.out.println("Le débit n'a pas été effectué (solde ou découvert insuffisant).");
                     } else {
                         System.out.println("Compte débité avec succès.");
                         compte.information();
